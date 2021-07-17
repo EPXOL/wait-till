@@ -1,7 +1,7 @@
 **Basic Usage**
 
 ```js
-var Await = require("Await");
+var Await = require("wait-until");
 
 var variable = {
   "name": "Some random name"
@@ -24,7 +24,7 @@ setTimeout(() => {
 **2nd Usage**
 
 ```js
-var Await = require("Await");
+var Await = require("wait-until");
 
 var variable = {
   "name": "Some random name"
@@ -43,7 +43,7 @@ Await(variable, (Variable) => Variable.name == "Some random name 2", () => {
 Discord.js music bot when checking if there is any non bot member in channel so it can pause music if there is not
 
 ```js
-var Await = require("Await");
+var Await = require("wait-until");
 //We are using Promise so code can continue but when bot will detect that there is no user there it will activate itself then
 
 new Promise(() => {
@@ -68,7 +68,7 @@ Await(serverQueue, (e) => e.voiceChannel.members.filter(m => !m.user.bot).size <
 2nd example is with our old good "variable.name" we will now detect if variable object was changed and if was continue code or run some function
 
 ```js
-var Await = require("Await");
+var Await = require("wait-until");
 
 var variable = {
   "name": "Some random name"
@@ -90,7 +90,7 @@ var variable = {
 ```
 
 ```js
-var Await = require("Await");
+var Await = require("wait-until");
 
 var variable = {
   "name": "Some random name"
@@ -118,7 +118,7 @@ Await(variable, (Variable) => {
 This test will after 3 seconds detect that variable has changed to "Some random name 2" and will print "Text matched" into console
 
 ```js
-var Await = require("Await");
+var Await = require("wait-until");
 
 var variable = {
   "name": "Some random name"
@@ -138,7 +138,7 @@ setTimeout(() => {
 This test will detect variable change every 3 seconds and will change it back everytime and print "Text matched" to console all this works in 3 seconds interval
 
 ```js
-var Await = require("Await");
+var Await = require("wait-until");
 
 var variable = {
   "name": "Some random name"
