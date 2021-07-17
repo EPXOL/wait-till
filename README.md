@@ -30,12 +30,15 @@ var variable = {
   "name": "Some random name"
 }
 
-Await(variable, (Variable) => Variable.name == "Some random name 2", () => {
+var randomNameAwait = Await(variable, (Variable) => Variable.name == "Some random name 2", () => {
   variable.name = "Some random name";
 })
 
 //Now we added callback that meens it is not anymore Promise but it will use callback to call function
 //Now everytime it will detect that "variable.name" is "Some random name 2" it will change it to "Some random name" and will continue awaiting
+
+//If you would want to end this you can use
+randomNameAwait.end();
 ```
 
 **Examples**
