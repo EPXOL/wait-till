@@ -1,0 +1,11 @@
+{
+  "name": "wait-until",
+  "version": "1.0.0",
+  "description": "wait-until is library that awaits until variable matches function then will run code.",
+  "main": "index.js",
+  "keywords": [
+    "await"
+  ],
+  "author": "EPXOL",
+  "license": "ISC"
+}
