@@ -9,6 +9,11 @@ module.exports = (Variable, Function, Callback) => {
         Callback();
       }
     })
+    return {
+      "end": () => {
+        clearInterval(interval);
+      }
+    }
   } //when Callback is not presend create one time match check that returns true
   else {
     //Create Promise
