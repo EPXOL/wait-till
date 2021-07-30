@@ -1,5 +1,6 @@
 **Basic Usage**
 
+**1st Usage**
 ```js
 var Await = require("wait-till");
 
@@ -41,6 +42,37 @@ var randomNameAwait = Await(variable, (Variable) => Variable.name == "Some rando
 randomNameAwait.end();
 ```
 
+**3rd Usage**
+```js
+var Await = require("wait-till");
+
+var variable = {
+
+}
+
+Await(variable, (Variable, OldVariable) => Variable !== OldVariable, (now, old) => {
+  //Do things
+})
+//Now this will await until variable object will cahnge in any way  [<variable> (Variable state now), <oldVariable> (Variable state on last check)]
+//It returns 2 arguments Variable in state now, and Variable in old State (This args are returned in all Await usages we just don't use it)
+//So you can use this Old state of variable in 1st usage too
+```
+
+**4th usage**
+```js
+var Await = require("wait-till");
+
+var variable = {
+  "name": "Some random name"
+}
+
+Await(() => variable.name), (Variable) => Variable == "Some random name 2", () => {
+  variable.name = "Some random name";
+})
+//When 1st argument is declared as function it will evacuate that function first and then use it's returned value as Variable
+//Function is evacuated everytime it makes check
+```
+
 **Examples**
 
 Discord.js music bot when checking if there is any non bot member in channel so it can pause music if there is not
@@ -68,7 +100,17 @@ Await(serverQueue, (e) => e.voiceChannel.members.filter(m => !m.user.bot).size <
 //This Example will pause dispatcher everytime it detects no users in cahnnel and that dispatcher is not paused
 ```
 
-2nd example is with our old good "variable.name" we will now detect if variable object was changed and if was continue code or run some function
+2nd example is the same as 1st but we will resume music when noone was in channel and someone joined
+```js
+Await(serverQueue, (currentQueueState, oldQueueState) => currentQueueState.voiceChannel.members.filter(m => !m.user.bot).size > 0&&oldQueueState.members.filter(m => !m.user.bot).size < 1&&e.dispatcher.paused, () => {
+  //This is callback so now we are finished
+  serverQueue.dispatcher.resume();
+})
+//This will wait until someone joins channel (CurrentQueueState voiceChannel users count is > than 0 and OldQueueSate voiceChannel users count is < than 1)
+//And dispatcher is paused
+```
+
+3rd example is with our old good "variable.name" we will now detect if variable object was changed and if was continue code or run some function
 
 ```js
 var Await = require("wait-till");
@@ -99,20 +141,13 @@ var variable = {
   "name": "Some random name"
 }
 
-var oldVariable = variable;  //An copy of variable object
-Await(variable, (Variable) => {
-  //Detecting if variable changed if did not asign Variable into oldVariable and return false
-  if(Variable !== oldVariable) return true; 
-  else {
-    oldVariable == Variable;
-    return false;
-  }
-}, () => {
+Await(variable, (Variable, OldVariable) => Variable !== OldVariable, () => {
   //Code here will be executed everytime when "variable" object changes
 })
 //If object "variable" changed continue execution of code
 
 //We don't need to use async function again becouse we are not using await when calling Await function
+//More explained in 3rd Usage
 ```
 
 **Test it now**

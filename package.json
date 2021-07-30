@@ -1,8 +1,9 @@
 {
   "name": "wait-till",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "wait-till is library that awaits until variable matches function then will run code.",
   "main": "index.js",
+  "repository": "https://github.com/EPXOL/wait-till",
   "keywords": [
     "await"
   ],

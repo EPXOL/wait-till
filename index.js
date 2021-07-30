@@ -1,9 +1,15 @@
 module.exports = (Variable, Function, Callback) => {
   if(Callback) {
+    var oldVariable = Variable;
     var interval = setInterval(() => {
-      if(Function(Variable)) {
-        Callback();
+      var variable = null;
+      if(typeof Variable === "function") variable = Variable();
+      else variable = Variable;
+      if(Function(variable, oldVariable)) {
+        Callback(variable, oldVariable);
       }
+      if(typeof Variable === "function") oldVariable = Variable();
+      else oldVariable = Variable;
     })
     return {
       "end": () => {
@@ -12,11 +18,17 @@ module.exports = (Variable, Function, Callback) => {
     }
   } else {
     return new Promise((resolve, reject) => {
+      var oldVariable = Variable;
       var interval = setInterval(() => {
-        if(Function(Variable)) {
+        var variable = null;
+        if(typeof Variable === "function") variable = Variable();
+        else variable = Variable;
+        if(Function(variable, oldVariable)) {
           clearInterval(interval);
-          resolve(true);
+          resolve(variable, oldVariable);
         }
+        if(typeof Variable === "function") oldVariable = Variable();
+        else oldVariable = Variable;
       })
     })
   }
